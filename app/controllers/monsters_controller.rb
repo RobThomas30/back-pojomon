@@ -1,7 +1,7 @@
 class MonstersController < ApplicationController
   before_action :authenticate_user
-  before_action :set_monster, except: [:index, :create, :current]
-  
+  before_action :set_monster, except: %i[index create current]
+
   def current
     monster = current_user.monsters.last
     render json: { monster: monster, current_user: current_user }
@@ -16,7 +16,7 @@ class MonstersController < ApplicationController
     if @monster.user_id == current_user.id
       render json: @monster
     else
-      render json: "Not your monster"
+      render json: 'Not your monster'
     end
   end
 
@@ -25,12 +25,11 @@ class MonstersController < ApplicationController
     if monster.save
       render json: monster, status: :created
     else
-      render json: { errors: monster.errors.full_messages }, status: :unprocessable_entity    
+      render json: { errors: monster.errors.full_messages }, status: :unprocessable_entity
     end
   end
 
   def update
-
     if @monster.update(monster_params) && @monster.user_id == current_user.id
       render json: { monster: @monster, current_user: current_user }
     else
@@ -41,7 +40,9 @@ class MonstersController < ApplicationController
   private
 
   def monster_params
-    params.require(:monster).permit(:name, :age, :weight, :hunger, :strength, :poop, :sick, :death, :level, :image, :counter, :user_id)
+    params.require(:monster).permit(
+      :name, :age, :weight, :hunger, :strength, :poop, :sick, :death, :level, :image, :counter, :user_id
+    )
   end
 
   def set_monster
