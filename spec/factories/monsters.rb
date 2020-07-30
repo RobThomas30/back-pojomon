@@ -2,7 +2,7 @@ FactoryBot.define do
   
   factory :monster do
     user
-    name { "Egg" }
+    name { 'Egg' }
     age { 0 }
     weight { 1 }
     hunger { 0 }
@@ -10,7 +10,8 @@ FactoryBot.define do
     poop { 0 }
     sick { false }
     death { 30 }
-    level { "Egg" }
+    level { 'Egg' }
+    image {'egg'}
+    counter { 0 }
   end
-
 end

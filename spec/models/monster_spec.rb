@@ -5,15 +5,17 @@ RSpec.describe Monster, type: :model do
   let(:owner){User.create(username: 'Testing', email: 'test@email.com', password: 'Secure101')}
   subject { described_class.new(
     user_id: owner.id,
-    name: 'Agumon', 
-    age: 3, # 0-infinite
-    weight: 100,
-    hunger: 5, # 0-5
-    strength: 5, # 0-5 
-    poop: 1, # 0-4
+    name: 'Egg', 
+    age: 0, 
+    weight: 1,
+    hunger: 0,
+    strength: 0,
+    poop: 0, 
     sick: false,
-    death: 30, # 0-30
-    level: 'Champion' # ['Egg', 'Baby', 'Training', 'Rookie', 'Champion', 'Ultimate']
+    death: 30, 
+    level: 'Egg' ,
+    image: 'egg',
+    counter: 0
   )}
   
   context 'validations' do
@@ -119,6 +121,16 @@ RSpec.describe Monster, type: :model do
 
     it 'is only valid with assigned level names' do
       subject.level = "Something"
+      expect(subject).to_not be_valid
+    end
+
+    it 'is not valid without a image' do
+      subject.image = nil
+      expect(subject).to_not be_valid
+    end
+
+    it 'is not valid without a counter' do
+      subject.counter = nil
       expect(subject).to_not be_valid
     end
   end

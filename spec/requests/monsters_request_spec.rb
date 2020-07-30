@@ -32,6 +32,8 @@ RSpec.describe "Monsters", type: :request do
         'sick' => @first_monster.sick,
         'death' => @first_monster.death,
         'level' => @first_monster.level,
+        'image' => @first_monster.image,
+        'counter' => @first_monster.counter
       }) 
     end
   end
@@ -71,18 +73,12 @@ RSpec.describe "Monsters", type: :request do
   describe 'PATCH #update' do
     context 'when params are valid' do
       before(:example) do
-        # @monster = create(:monster)
         @monster = create(:monster)
         @updated_name = 'Botomon'
         @id = @monster.id
         @user = @monster.user
         token = Knock::AuthToken.new(payload: {sub: @user.id}).token
         patch "/monsters/#{@id}", headers: { 'Authorization': "Bearer #{token}" }, params: { monster: { name: @updated_name } }
-        # @json_response = JSON.parse(response.body)
-      end
-
-      it 'has a http no content response status' do
-        expect(response).to have_http_status(:no_content) 
       end
 
       it 'updates the monster in the database' do 

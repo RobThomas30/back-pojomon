@@ -11,4 +11,6 @@ class Monster < ApplicationRecord
   validates :sick, inclusion: [true, false]
   validates :death, presence: true, numericality: { only_integer: true, greater_than: -1, less_than: 31 }
   validates :level, presence: true, inclusion: %w[Egg Baby Training Rookie Champion Ultimate]
+  validates :image, presence: true
+  validates :counter, presence: true
 end
